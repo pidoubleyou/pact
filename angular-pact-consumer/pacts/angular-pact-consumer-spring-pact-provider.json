@@ -1,0 +1,85 @@
+{
+  "consumer": {
+    "name": "angular-pact-consumer"
+  },
+  "provider": {
+    "name": "spring-pact-provider"
+  },
+  "interactions": [
+    {
+      "description": "a request to post a new person",
+      "providerState": "provider returns new person",
+      "request": {
+        "method": "POST",
+        "path": "/persons",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "new person"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "3",
+          "name": "new person"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          },
+          "$.body.id": {
+            "match": "regex",
+            "regex": "[0-9]+"
+          }
+        }
+      }
+    },
+    {
+      "description": "a request to get a person by an unknown id",
+      "providerState": "provider returns not found",
+      "request": {
+        "method": "GET",
+        "path": "/persons/6"
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "description": "a request to get a person by id",
+      "providerState": "provider returns person",
+      "request": {
+        "method": "GET",
+        "path": "/persons/3"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": 3,
+          "name": "test person"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
