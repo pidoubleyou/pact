@@ -22,6 +22,20 @@ class PersonControllerTest {
   @Test
   public void createPerson() throws Exception {
 
-    this.mockMvc.perform(post("/persons").contentType(MediaType.APPLICATION_JSON_VALUE).content("{\"name\":\"test\"}")).andExpect(status().isOk());
+    this.mockMvc
+      .perform(post("/persons")
+               .contentType(MediaType.APPLICATION_JSON_VALUE)
+               .content("{\"name\":\"test\"}"))
+      .andExpect(status().isOk());
+  }
+  
+  @Test
+  public void getById() throws Exception {
+    when(this.personRepository.getById(3L)).thenReturn(Optional.of(new Person(3, "test")));
+
+    this.mockMvc
+        .perform(get("/persons/3"))
+        .andExpect(status().isOk())
+        .andExpect(content().json("{\"id\":3,\"name\":\"test\"}"));
   }
 }
