@@ -7,6 +7,39 @@
   },
   "interactions": [
     {
+      "description": "a request to post a new person",
+      "providerState": "provider returns new person",
+      "request": {
+        "method": "POST",
+        "path": "/persons",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "new person"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "3",
+          "name": "new person"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          },
+          "$.body.id": {
+            "match": "regex",
+            "regex": "[0-9]+"
+          }
+        }
+      }
+    },
+    {
       "description": "a request to get a person by an unknown id",
       "providerState": "provider returns not found",
       "request": {
@@ -38,39 +71,6 @@
         "matchingRules": {
           "$.body": {
             "match": "type"
-          }
-        }
-      }
-    },
-    {
-      "description": "a request to post a new person",
-      "providerState": "provider returns new person",
-      "request": {
-        "method": "POST",
-        "path": "/persons",
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "body": {
-          "name": "new person"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "body": {
-          "id": "3",
-          "name": "new person"
-        },
-        "matchingRules": {
-          "$.body": {
-            "match": "type"
-          },
-          "$.body.id": {
-            "match": "regex",
-            "regex": "[0-9]+"
           }
         }
       }

@@ -10,7 +10,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "pact-publish": "ng test --watch=false --reporters pact"
   },
   "private": true,
   "dependencies": {

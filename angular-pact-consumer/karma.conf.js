@@ -1,5 +1,6 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
+var packageJson = require('./package.json');
 
 module.exports = function (config) {
   config.set({
@@ -11,6 +12,7 @@ module.exports = function (config) {
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('@pact-foundation/karma-pact'),
+      require('@mattersight/karma-pact-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
@@ -37,6 +39,14 @@ module.exports = function (config) {
       provider: 'spring-pact-provider',
       dir: 'pacts',
       spec: 2
-    }]
+    }],
+    pactReporter: {
+      pactBroker: 'http://localhost:8088',
+      pactFilesOrDirs: [require('path').join(__dirname, 'pacts')],
+      consumerVersion: packageJson.version,
+      appendGitCommitHashToVersion: false,
+      addGitBranchNameToTags: true,
+      tags: []
+    }
   });
 };
