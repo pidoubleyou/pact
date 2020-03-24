@@ -3,7 +3,6 @@ package pact.springpactprovider;
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
 import au.com.dius.pact.provider.junit.loader.PactBroker;
-import au.com.dius.pact.provider.junit.loader.PactFolder;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.spring.junit5.PactVerificationSpringProvider;
 import org.junit.jupiter.api.TestTemplate;
@@ -22,8 +21,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Provider("spring-pact-provider")
-//@PactBroker
-@PactFolder("./../angular-pact-consumer/pacts/")
+@PactBroker(host = "localhost", port="8088")
+//@PactFolder("./../angular-pact-consumer/pacts/")
 public class PactTest {
 
   @MockBean
