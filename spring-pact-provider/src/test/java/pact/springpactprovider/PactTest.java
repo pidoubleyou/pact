@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @Provider("spring-pact-provider")
 //@PactBroker
-@PactFolder("/home/snoopy/development/work/pact/angular-pact-consumer/pacts/")
+@PactFolder("./../angular-pact-consumer/pacts/")
 public class PactTest {
 
   @MockBean
@@ -45,5 +45,10 @@ public class PactTest {
   public void getByIdState() {
     Person person = new Person(3L, "test person");
     when(personRepository.getById(3L)).thenReturn(Optional.of(person));
+  }
+
+  @State("provider returns not found")
+  public void getByIdNotFoundState() {
+    when(personRepository.getById(6L)).thenReturn(Optional.empty());
   }
 }
