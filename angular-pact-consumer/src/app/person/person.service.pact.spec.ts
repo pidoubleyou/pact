@@ -60,10 +60,7 @@ describe('PACT PersonService', () => {
           path: '/persons/6'
         },
         willRespondWith: {
-          status: 404,
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          status: 404
         }
       }).then(done, error => done.fail(error));
     });
@@ -86,7 +83,8 @@ describe('PACT PersonService', () => {
       }, error => {
         done.fail(error);
       });
-    });  });
+    });
+  });
 
   describe('create', () => {
     const personName = 'new person';
