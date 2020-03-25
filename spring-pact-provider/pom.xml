@@ -53,6 +53,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+
+				<configuration>
+					<systemPropertyVariables>
+						<pact.provider.version>${version}</pact.provider.version>
+						<pact.verifier.publishResults>false</pact.verifier.publishResults>
+					</systemPropertyVariables>
+				</configuration>
+
+			</plugin>
 		</plugins>
 	</build>
 
