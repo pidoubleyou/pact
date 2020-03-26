@@ -76,7 +76,6 @@
 <--->
 
 <p style="font-size: 200px; color: green">Beispiel</p>
-<--->
 
 <--->
 
