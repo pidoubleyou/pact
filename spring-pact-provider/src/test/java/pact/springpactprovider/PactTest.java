@@ -16,6 +16,7 @@ import pact.springpactprovider.person.PersonRepository;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -34,9 +35,9 @@ public class PactTest {
     context.verifyInteraction();
   }
 
-  @State("provider returns new person")
-  public void postNewPersonState() {
-    Person person = new Person(87L, "new person");
+  @State("provider creates new person")
+  public void createState() {
+    Person person = new Person(2L, "Alois Ripley");
     when(personRepository.save(any(Person.class))).thenReturn(person);
   }
 

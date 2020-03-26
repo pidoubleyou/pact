@@ -2,6 +2,7 @@ import { PactWeb, Matchers } from '@pact-foundation/pact-web';
 import { TestBed } from '@angular/core/testing';
 import { PersonService } from './person.service';
 import { HttpClientModule } from '@angular/common/http';
+import { doesNotReject } from 'assert';
 
 describe('PACT PersonService', () => {
   let provider;
@@ -29,6 +30,48 @@ describe('PACT PersonService', () => {
       ]
     });
     personService = TestBed.inject(PersonService);
+  });
+
+  describe('create person', () => {
+    beforeAll((done) => {
+      provider.addInteraction({
+        state: 'provider creates new person',
+        uponReceiving: 'a request to create a person',
+        withRequest: {
+          method: 'POST',
+          path: '/persons',
+          body: {
+            name: 'Alois Ripley'
+          },
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        },
+        willRespondWith: {
+          status: 200,
+          body: {
+            id: Matchers.term({
+              generate: '9',
+              matcher: '[0-9]+'
+            }),
+            name: 'Alois Ripley'
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      }).then(done, error => done.fail(error));
+    });
+
+    it('should create person if I call create person', (done) => {
+      personService.create('Alois Ripley').subscribe(person => {
+        expect(person.name).toEqual('Alois Ripley');
+        expect(+person.id).toBe(9);
+        done();
+      }, error => {
+        done.fail(error);
+      });
+    });
   });
 
   describe('getById', () => {
@@ -85,7 +128,7 @@ describe('PACT PersonService', () => {
       });
     });
   });
-
+/*
   describe('create', () => {
     const personName = 'new person';
 
@@ -129,5 +172,5 @@ describe('PACT PersonService', () => {
         done.fail(error);
       });
     });
-  });
+  });*/
 });

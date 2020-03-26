@@ -7,8 +7,8 @@
   },
   "interactions": [
     {
-      "description": "a request to post a new person",
-      "providerState": "provider returns new person",
+      "description": "a request to create a person",
+      "providerState": "provider creates new person",
       "request": {
         "method": "POST",
         "path": "/persons",
@@ -16,7 +16,7 @@
           "Content-Type": "application/json"
         },
         "body": {
-          "name": "new person"
+          "name": "Alois Ripley"
         }
       },
       "response": {
@@ -25,13 +25,10 @@
           "Content-Type": "application/json"
         },
         "body": {
-          "id": "3",
-          "name": "new person"
+          "id": "9",
+          "name": "Alois Ripley"
         },
         "matchingRules": {
-          "$.body": {
-            "match": "type"
-          },
           "$.body.id": {
             "match": "regex",
             "regex": "[0-9]+"
